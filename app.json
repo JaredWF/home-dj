@@ -1,0 +1,9 @@
+{
+  "name": "Home DJ",
+  "description": "The front end for a collaborative playlist service",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-php"
+    }
+  ]
+}
