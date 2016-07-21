@@ -17,7 +17,7 @@
   				<td class="tab">
             <a href="<?php 
               parse_str($_SERVER['QUERY_STRING']); 
-              echo "http://localhost/playlist.php?hash=" . $hash;
+              echo $_SERVER['HTTP_HOST'] . "/playlist.php?hash=" . $hash;
             ?>">Playlist</a>
   				</td>
   				<td class="tab" id="selected_tab">

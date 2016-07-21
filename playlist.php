@@ -18,7 +18,7 @@
   				<td class="tab">
             <a href="<?php 
               parse_str($_SERVER['QUERY_STRING']); 
-              echo "http://localhost/search.php?hash=" . $hash;
+              echo $_SERVER['HTTP_HOST'] . "/search.php?hash=" . $hash;
             ?>">Search</a>
           </td>
   			<tr>
