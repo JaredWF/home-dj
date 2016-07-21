@@ -30,7 +30,7 @@
       	parse_str($_SERVER['QUERY_STRING']);
 
 
-				$json_url = 'http://' . $_SERVER['HTTP_HOST'] . $hash . '/getAllSongs';
+				$json_url = 'http://' . $_SERVER['HTTP_HOST'] . $hash . '/get-all-songs';
         //$json_url = 'home-dj.herokuapp.com/' . $hash . '/getAllSongs';
 				$cURL = curl_init( $json_url );
 				curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
