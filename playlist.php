@@ -35,7 +35,7 @@
 
         <div>
           <a href=<?php echo $ui_url . "/playlist.php?hash=" . $hash; ?>><div class="col-xs-6 tab selected_tab"><h3>Playlist</h3></div></a>
-          <a href=<?php echo $ui_url . "/search.php?hash=" . $hash ?>><div class="col-xs-6 tab"><h3>Search</h3></div></a>
+          <a href=<?php echo $ui_url . "/search.php?hash=" . $hash; ?>><div class="col-xs-6 tab"><h3>Search</h3></div></a>
         </div>
       </div>
 

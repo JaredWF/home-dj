@@ -44,35 +44,31 @@
               echo "class='container fill'";
             } else {
               echo "class='container'";
-            } ?>>>
+            } ?>>
 
       <div id="snackbar">Song already in playlist</div>
-      <div class="header">
-        <div class="row">
-          <div class="playlist_title">
-            <h1><?php echo $playlist_name ?></h1>
-          </div>
+      <div class="header row">
+        <div class="playlist_title">
+          <h1><?php echo $playlist_name ?></h1>
+        </div>
 
-          <div>
-            <a href=<?php echo $ui_url . "/playlist.php?hash=" . $hash; ?>><div class="col-xs-6 tab"><h3>Playlist</h3></div></a>
-            <a href=<?php echo $ui_url . "/search.php?hash=" . $hash ?>><div class="col-xs-6 tab selected_tab"><h3>Search</h3></div></a>
-          </div>
+        <div>
+          <a href=<?php echo $ui_url . "/playlist.php?hash=" . $hash; ?>><div class="col-xs-6 tab"><h3>Playlist</h3></div></a>
+          <a href=<?php echo $ui_url . "/search.php?hash=" . $hash; ?>><div class="col-xs-6 tab selected_tab"><h3>Search</h3></div></a>
         </div>
 
 
-        <div class="row">
-          <div class="col-lg-12 no_padding">
-            <form action="search.php" method="GET">
-              <div class="input-group input-group-lg">
-                <input type="hidden" name="hash" value=<?php echo $hash; ?>>
-                <input type="text" class="form-control" id="search" name="query" placeholder="Search">
-                <span class="input-group-btn">
-                  <button class="btn" type="submit">Search</button>
-                </span>
-              </div><!-- /input-group -->
-            </form>
-          </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
+        <div class="col-lg-12 no_padding">
+          <form action="search.php" method="GET">
+            <div class="input-group input-group-lg">
+              <input type="hidden" name="hash" value=<?php echo $hash; ?>>
+              <input type="text" class="form-control" id="search" name="query" placeholder="Search">
+              <span class="input-group-btn">
+                <button class="btn" type="submit">Search</button>
+              </span>
+            </div><!-- /input-group -->
+          </form>
+        </div><!-- /.col-lg-6 -->
       </div><!-- /.header -->
 
 
