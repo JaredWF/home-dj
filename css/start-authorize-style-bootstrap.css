@@ -1,0 +1,41 @@
+html, body{
+  background-color: #101010;
+  font-family: 'Oswald', sans-serif;
+}
+
+.container {
+  background-color: #202020;
+}
+
+h1 {
+  background-color: #003E3E;
+  color: #cccccc;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+h3 {
+  padding-top: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.playlist_card {
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.playlist_text {
+  background-color: #3C8F8F;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.clickable {
+  cursor: pointer;
+}

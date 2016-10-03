@@ -1,80 +1,58 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-        <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-        <link rel='stylesheet' href='css/playlistStyleShared.css' />
-        <link rel='stylesheet' media='screen and (max-width: 700px)' href='css/playlistStyleSmall.css' />
-        <link rel='stylesheet' media='screen and (min-width: 701px) and (max-width: 900px)' href='css/playlistStyleMedium.css' />
-        <link rel='stylesheet' media='screen and (min-width: 901px)' href='css/playlistStyleLarge.css' />
-        <link rel="stylesheet" type="text/css" href="css/searchStyle.css">
-        <script src="js/jquery-2.2.0.js"></script>
-        <script src='js/Search.js'></script>
-        <title>DJ Station</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Choose Playlist | Crowd DJ</title>
+      <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="css/start-authorize-style-bootstrap.css">
     </head>
   <body id="body">
-    <p>Choose a playlist</p>
-    <?php
-      $domain = $_SERVER['HTTP_HOST'];
-      parse_str($_SERVER['QUERY_STRING']);
+    <div class="container">
+      <div class="row">
+        <h1>Choose a playlist</h1>
+        <?php
+          $domain = getenv('api_url');
+          $ui_url = getenv('ui_url');
+          parse_str($_SERVER['QUERY_STRING']);
 
-      $json_url = 'localhost:8080/finish-authorize?code=' . $code;
-      $cURL = curl_init( $json_url );
-      curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
-      $result = curl_exec($cURL); // Getting jSON result string
-
-      curl_close($cURL);
-      $json_array = json_decode($result, true);
-      
-      foreach($json_array as $json) {
-    ?>
+          $json_url = $domain . '/finish-authorize?code=' . $code;
+          $cURL = curl_init( $json_url );
+          curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
+          $hash = curl_exec($cURL);
+          curl_close($cURL);
+          echo "<p hidden id='hash'>{$hash}</p>";
+          echo "<p hidden id='ui_url'>{$ui_url}</p>";
+          echo "<p hidden id='api_url'>{$domain}</p>";
 
 
-    <div id="title">Playlist Title</div>
-    <div>
-      <table id="tab_table">
-        <tr>
-          <td class="tab" id="selected_tab">
-            <a href="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']?>">Playlist</a>
-          </td>
-          <td class="tab">
-            <a href="<?php 
-              parse_str($_SERVER['QUERY_STRING']); 
-              echo $_SERVER['HTTP_HOST'] . "/search.php?hash=" . $hash;
-            ?>">Search</a>
-          </td>
-        <tr>
-      </table>
+          $json_url = $domain . '/' . $hash . "/get-playlists";
+          $cURL = curl_init( $json_url );
+          curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
+          $result = curl_exec($cURL); // Getting jSON result string
+
+          curl_close($cURL);
+
+          $json_array = json_decode($result, true);
+
+          foreach($json_array as $json){
+            echo "<div class='playlist_card col-xs-12 col-sm-6 col-md-4' id='{$json['id']}'>
+                    <img class='album_image clickable' src='{$json['imageURL']}'>
+                    <div class='playlist_text clickable'><h3>{$json['name']}</h3></div>
+                    <div class='playlist_text clickable'>{$json['trackCount']} Songs</div>
+                  </div>";
+          }
+        ?>
+      </div>
     </div>
-    <table id="results">
-      <?php
-        $domain = $_SERVER['HTTP_HOST'];
-        parse_str($_SERVER['QUERY_STRING']);
-
-
-        $json_url = 'localhost:8080/' . $hash . '/getAllSongs';
-        //$json_url = 'home-dj.herokuapp.com/' . $hash . '/getAllSongs';
-        $cURL = curl_init( $json_url );
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, TRUE);
-        $result = curl_exec($cURL); // Getting jSON result string
-
-        curl_close($cURL);
-        $json_array = json_decode($result, true);
-        //var_dump($json_array);
-
-        foreach($json_array as $json){
-          echo "<tr>
-              <td><img class='album_image' src='{$json['imageURL']}'></td>
-              <td class='song_text'>
-                <div class='song_title'>{$json['name']}</div>
-                <div class='artist_name'>{$json['artist']}</div>
-              </td>
-            </tr>"; // you can access your key value like this if result is array
-           //echo $json->name; // you can access your key value like this if result is object
-        }
-
-      ?>
-    </table>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/choosePlaylist.js"></script>
   </body>
 </html>
